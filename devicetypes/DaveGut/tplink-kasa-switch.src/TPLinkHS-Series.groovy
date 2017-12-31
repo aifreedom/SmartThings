@@ -3,27 +3,27 @@ TP-Link HS-Series Cloud-connect Device Handler
 
 Copyright 2017 Dave Gutheinz
 
-Licensed under the Apache License, Version 2.0 (the "License"); you 
-may not use this  file except in compliance with the License. You may 
+Licensed under the Apache License, Version 2.0 (the "License"); you
+may not use this  file except in compliance with the License. You may
 obtain a copy of the License at:
 
 		http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, 
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
-implied. See the License for the specific language governing 
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
 permissions and limitations under the License.
 
-##### Discalimer:  This Service Manager and the associated Device 
-Handlers are in no way sanctioned or supported by TP-Link.  All  
-development is based upon open-source data on the TP-Link devices; 
+##### Discalimer:  This Service Manager and the associated Device
+Handlers are in no way sanctioned or supported by TP-Link.  All
+development is based upon open-source data on the TP-Link devices;
 primarily various users on GitHub.com.
 
 ##### Notes #####
 1.	This DH is a child device to 'TP-Link Connect'.
 2.	This device handler supports the TP-Link HS-Series functions.
-3.	Please direct comments to the SmartThings community thread 
+3.	Please direct comments to the SmartThings community thread
 	'Cloud TP-Link Device SmartThings Integration'.
 
 ##### History #####
@@ -34,7 +34,7 @@ primarily various users on GitHub.com.
 */
 
 metadata {
-	definition (name: "TP-LinkHS-Series", namespace: "beta", author: "Dave Gutheinz") {
+	definition (name: "TP-LinkHS-Series", namespace: "DaveGut", author: "Dave Gutheinz") {
 		capability "Switch"
 		capability "refresh"
 		capability "polling"
@@ -59,14 +59,14 @@ metadata {
 		}
 		standardTile("refresh", "capability.refresh", width: 2, height: 2,  decoration: "flat") {
 			state ("default", label:"Refresh", action:"refresh.refresh", icon:"st.secondary.refresh")
-		}		 
-		
+		}
+
 		main("switch")
 		details("switch", "refresh")
 	}
 	def rates = [:]
 	rates << ["5" : "Refresh every 5 minutes"]
-	rates << ["10" : "Refresh every 10 minutes"]	
+	rates << ["10" : "Refresh every 10 minutes"]
 	rates << ["15" : "Refresh every 15 minutes"]
 	rates << ["30" : "Refresh every 30 minutes"]
 	preferences {
@@ -148,7 +148,7 @@ private sendCmdtoServer(command, action){
 		action = ""
 	} else {
 		sendEvent(name: "deviceError", value: "OK")
-	}	
+	}
 	switch(action) {
 		case "onOffResponse":
 			onOffResponse(cmdResponse)
