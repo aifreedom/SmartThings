@@ -3,27 +3,27 @@ TP-Link (unofficial) Connect Service Manager
 
 Copyright 2017 Dave Gutheinz
 
-Licensed under the Apache License, Version 2.0 (the "License"); you 
-may not use this  file except in compliance with the License. You may 
+Licensed under the Apache License, Version 2.0 (the "License"); you
+may not use this  file except in compliance with the License. You may
 obtain a copy of the License at:
 
 		http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software 
-distributed under the License is distributed on an "AS IS" BASIS, 
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
-implied. See the License for the specific language governing 
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
 permissions and limitations under the License.
 
-##### Discalimer:  This Service Manager and the associated Device 
-Handlers are in no way sanctioned or supported by TP-Link.  All  
-development is based upon open-source data on the TP-Link devices; 
+##### Discalimer:  This Service Manager and the associated Device
+Handlers are in no way sanctioned or supported by TP-Link.  All
+development is based upon open-source data on the TP-Link devices;
 primarily various users on GitHub.com.
 
 ##### Notes #####
-1.	This Service Manager is designed to install and manage TP-Link 
+1.	This Service Manager is designed to install and manage TP-Link
 	bulbs, plugs, and switches using their respective device handlers.
-2.	Please direct comments to the SmartThings community thread 
+2.	Please direct comments to the SmartThings community thread
 	'Cloud TP-Link Device SmartThings Integration'.
 
 ##### History #####
@@ -70,28 +70,28 @@ def cloudLogin() {
 			"\n\r\n\rPlease resolve the error and try again.\n\r\n\r"
 		}
    return dynamicPage(
-		name: "cloudLogin", 
-		title: "TP-Link Device Service Manager", 
-		nextPage: "selectDevices", 
+		name: "cloudLogin",
+		title: "TP-Link Device Service Manager",
+		nextPage: "selectDevices",
 		uninstall: true) {
 		section(errorMsg)
 		section(cloudLoginText) {
-			input( 
-				"userName", "string", 
-				title:"Your TP-Link Email Address", 
-				required:true, 
+			input(
+				"userName", "string",
+				title:"Your TP-Link Email Address",
+				required:true,
 				displayDuringSetup: true
 		   )
 			input(
-				"userPassword", "password", 
-				title:"TP-Link account password", 
-				required: true, 
+				"userPassword", "password",
+				title:"TP-Link account password",
+				required: true,
 				displayDuringSetup: true
 			)
 			input(
 				"updateToken", "enum",
 				title: "What do you want to do?",
-				required: true, 
+				required: true,
 				multiple: false,
 				options: ["Initial Install", "Add Devices", "Update Token"]
 			)
@@ -138,15 +138,15 @@ def selectDevices() {
 		"wish to add, thenpress DONE again to install the devices.  Press   <   " +
 		"to return to the previous page."
 	return dynamicPage(
-		name: "selectDevices", 
-		title: "Select Your TP-Link Devices", 
+		name: "selectDevices",
+		title: "Select Your TP-Link Devices",
 		install: true,
 		uninstall: true) {
 		section(errorMsg)
 		section(TPLinkDevicesMsg) {
 			input "selectedDevices", "enum",
-			required:false, 
-			multiple:true, 
+			required:false,
+			multiple:true,
 			title: "Select Devices (${newDevices.size() ?: 0} found)",
 			options: newDevices
 		}
@@ -193,12 +193,12 @@ def addDevices() {
 			def device = state.devices.find { it.value.deviceMac == dni }
 			def deviceModel = device.value.deviceModel.substring(0,5)
 			addChildDevice(
-				"beta",
-				tpLinkModel["${deviceModel}"], 
-				device.value.deviceMac, 
+				"davegut",
+				tpLinkModel["${deviceModel}"],
+				device.value.deviceMac,
 				hubId, [
 					"label": device.value.alias,
-			   		"name": device.value.deviceModel, 
+			   		"name": device.value.deviceModel,
 					"data": [
 						"deviceId" : device.value.deviceId,
 						"appServerUrl": device.value.appServerUrl,
@@ -279,7 +279,7 @@ def sendDeviceCmd(appServerUrl, deviceId, command) {
 	def cmdBody = [
 		method: "passthrough",
 		params: [
-			deviceId: deviceId, 
+			deviceId: deviceId,
 			requestData: "${command}"
 		]
 	]
